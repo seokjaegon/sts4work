@@ -1,0 +1,10 @@
+패키지 구성
+- controller
+- service
+- dto
+- dao
+- config
+- util
+
+DTO 작성하기
+  DB 테이블(또는 view)의 컬럼과 같은 변수로 구성.
