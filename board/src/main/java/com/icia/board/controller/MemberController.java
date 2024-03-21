@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.icia.board.dto.MemberDto;
@@ -40,4 +42,19 @@ public class MemberController {
 		
 		return mServ.loginProc(member, session, rttr); 
 	}
+	
+	@GetMapping("joinForm")
+	public String joinForm() {
+		log.info("joinForm()");
+		
+		return "joinForm";
+	}
+	
+//	@GetMapping("idCheck")
+//	@ResponseBody
+//	public String idCheck(@RequestParam("mid") String mid) {
+//		log.info("idCheck() {}", mid);
+//		
+//		return "ok";//javascript ajax success의 res로 들어가는 값.
+//	}
 }

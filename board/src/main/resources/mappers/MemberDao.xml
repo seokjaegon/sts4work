@@ -11,4 +11,9 @@
 		resultType="MemberDto">
 		SELECT * FROM minfo WHERE m_id=#{mid}	
 	</select>
+	
+	<select id="selectId" parameterType="String"
+		resultType="Integer">
+		SELECT count(*) FROM member WHERE m_id=#{mid}
+	</select>
 </mapper>

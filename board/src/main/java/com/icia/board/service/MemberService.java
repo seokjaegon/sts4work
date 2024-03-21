@@ -51,4 +51,19 @@ public class MemberService {
 		
 		return view;
 	}
-}
+	
+	public String idCheck(String mid) {
+		log.info("idCheck()");
+		String result = null;
+		
+		int memCnt = mDao.selectId(mid);
+		if(memCnt == 0) {
+			result = "ok";
+		} else {
+			result = "fail";
+		}
+		
+		return result;
+	}
+	
+}//class end
