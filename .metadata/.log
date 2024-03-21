@@ -1281,3 +1281,9 @@ Binding(CTRL+SHIFT+C,
 
 !ENTRY org.eclipse.wildwebdeveloper.xml 2 0 2024-03-21 09:59:08.545
 !MESSAGE The given URI http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_1.xsd from org.eclipse.jst.standard.schemas could not be resolved for local access
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-03-21 14:18:23.795
+!MESSAGE Classpath changed for project: board
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-03-21 15:22:26.440
+!MESSAGE Classpath changed for project: board

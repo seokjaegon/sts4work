@@ -50,6 +50,7 @@ public class MemberController {
 		return "joinForm";
 	}
 	
+//  idCheck는 BoardRestController로 이동함.
 //	@GetMapping("idCheck")
 //	@ResponseBody
 //	public String idCheck(@RequestParam("mid") String mid) {
@@ -57,4 +58,21 @@ public class MemberController {
 //		
 //		return "ok";//javascript ajax success의 res로 들어가는 값.
 //	}
+	
+	@PostMapping("joinProc")
+	public String joinProc(MemberDto member,
+						   RedirectAttributes rttr) {
+		log.info("joinProc()");
+		String view = mServ.memberJoin(member, rttr);
+		
+		return view;
+	}
+	
+	//메일 인증 메핑 메소드
+	@GetMapping("authUser")
+	public String authUser() {
+		log.info("authUser()");
+		
+		return "authUser";
+	}
 }

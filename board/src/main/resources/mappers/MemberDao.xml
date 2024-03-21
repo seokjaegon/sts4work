@@ -16,4 +16,10 @@
 		resultType="Integer">
 		SELECT count(*) FROM member WHERE m_id=#{mid}
 	</select>
+	
+	<insert id="insertMember" parameterType="MemberDto">
+		INSERT INTO MEMBER
+		VALUES(#{m_id},#{m_pwd},#{m_name},#{m_email},
+			   #{m_birth},#{m_addr},#{m_phone},DEFAULT)
+	</insert>
 </mapper>

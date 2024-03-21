@@ -1,6 +1,7 @@
 package com.icia.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,6 +17,10 @@ public class MemberService {
 	@Autowired
 	private MemberDao mDao;
 	
+	//비밀번호 암호화 인코더
+	private BCryptPasswordEncoder pEncoder = 
+			new BCryptPasswordEncoder();
+	
 	//로그인 처리 메소드
 	public String loginProc(MemberDto member,
 							HttpSession session,
@@ -28,7 +33,8 @@ public class MemberService {
 		String encPwd = mDao.selectPassword(member.getM_id());
 		
 		if(encPwd != null) {//member가 존재함
-			if(encPwd.equals(member.getM_pwd())) {
+			//matches(평문-사용자입력값, 암호문-DB저장값)
+			if(pEncoder.matches(member.getM_pwd(), encPwd)) {
 				//로그인 성공!
 				member = mDao.selectMember(member.getM_id());
 				//세션에 로그인한 회원의 정보를 저장
@@ -64,6 +70,33 @@ public class MemberService {
 		}
 		
 		return result;
+	}
+	
+	public String memberJoin(MemberDto member, 
+							 RedirectAttributes rttr) {
+		log.info("memberJoin()");
+		//가입 성공 시 첫페이지(또는 로그인페이지)로, 실패 시 가입 페이지로 이동
+		String view = null;
+		String msg = null;
+		
+		//비밀번호 암호화 처리
+		String encPwd = pEncoder.encode(member.getM_pwd());
+		log.info(encPwd);
+		member.setM_pwd(encPwd);//암호화된 비밀번호 다시 저장.
+		
+		try {
+			mDao.insertMember(member);
+			view = "redirect:/";
+			msg = "가입 성공";
+		} catch (Exception e) {
+			e.printStackTrace();
+			view = "redirect:joinForm";
+			msg = "가입 실패";
+		}
+		
+		rttr.addFlashAttribute("msg", msg);
+		
+		return view;
 	}
 	
 }//class end
