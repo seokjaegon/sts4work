@@ -45,6 +45,36 @@
         			}
         		});
         	});
+        	
+        	//인증코드 전송 및 확인
+        	$("#cbtn").click(function() {
+        		let vcode = $("#v_code").val();
+        		if(vcode == "") {
+        			alert("인증코드를 입력하세요.");
+        			return;
+        		}
+        		
+        		let cobj = {"v_code" : vcode};
+        		
+        		$.ajax({
+        			url: "codeAuth",
+        			type: "post",
+        			data: cobj,
+        			success: (res) => {
+        				if(res == "ok") {
+        					location.href="/pwdChange";
+        				}
+        				else {
+        					alert("코드가 맞지 않습니다.");
+        					location.reload();//페이지 새로 고침.
+        				}
+        			},
+        			error: (err) => {
+        				console.log(err);
+        				alert("코드 인증 실패");
+        			}
+        		});
+        	});
         });
     </script>
 </head>
@@ -58,7 +88,7 @@
 	            <h2 class="login-header">메일 인증</h2>
 	            <input type="text" class="login-input" id="m_id"
                    	   autofocus placeholder="아이디">
-	            <input type="email" class="login-input" id="m_mail" 
+	            <input type="email" class="login-input" id="m_email" 
 	            	   placeholder="이메일">
 	            <button type="button" class="login-btn" id="sbtn">인증코드전송</button>
 	            <input type="text" class="login-input tbmg" id="v_code"
