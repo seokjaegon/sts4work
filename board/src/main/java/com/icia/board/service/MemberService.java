@@ -128,5 +128,12 @@ public class MemberService {
 		
 		return view;
 	}
+
+	public String logout(HttpSession session, RedirectAttributes rttr) {
+		log.info("logout()");
+		session.invalidate();
+		rttr.addFlashAttribute("msg", "로그아웃 되었습니다.");
+		return "redirect:/";
+	}
 	
 }//class end

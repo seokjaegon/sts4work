@@ -57,7 +57,6 @@ public class MailService {
 		}
 		
 		authNum = key.toString();
-		System.out.println(authNum);
 	}
 	
 	//메일 양식 생성 메소드
