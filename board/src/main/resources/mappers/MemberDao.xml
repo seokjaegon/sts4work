@@ -32,4 +32,9 @@
 		UPDATE member SET m_pwd=#{m_pwd}
 		WHERE m_id=#{m_id}
 	</update>
+	
+	<update id="updateMemberPoint" parameterType="MemberDto">
+		UPDATE member SET m_point=#{m_point}
+		WHERE m_id=#{m_id}
+	</update>
 </mapper>
