@@ -89,4 +89,8 @@
 	<delete id="deleteBoard" parameterType="Integer">
 		DELETE FROM board WHERE b_num=#{b_num}
 	</delete>
+	
+	<update id="updateBoardView" parameterType="Integer">
+    UPDATE board SET b_views = b_views + 1 WHERE b_num = #{b_num}
+</update>
 </mapper>

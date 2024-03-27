@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -203,25 +205,33 @@ public class BoardService {
 		}
 	}
 
-	public String getBoard(int b_num, Model model) {
-		log.info("getBoard()");
-		
-		//조회수 업데이트 부분은 과제
-		
-		//게시글 번호(b_num)로 게시물 가져오기
-		BoardDto board = bDao.selectBoard(b_num);
-		model.addAttribute("board", board);
-		
-		//파일 목록 가져오기
-		List<BoardFileDto> bfList = bDao.selectFileList(b_num);
-		model.addAttribute("bfList", bfList);
-		
-		//댓글 목록 가져오기
-		List<ReplyDto> rList = bDao.selectReplyList(b_num);
-		model.addAttribute("rList", rList);
-		
-		return "boardDetail";
-	}
+	public String getBoard(int b_num, Model model, HttpSession session) {
+	    log.info("getBoard()");
+
+	    // 조회수 업데이트 부분은 스스로..
+	    MemberDto member = (MemberDto) session.getAttribute("member");
+	    BoardDto board = bDao.selectBoard(b_num);
+	    
+	    String mid = member.getM_id();
+	    String bid = board.getB_id();
+	    if(!mid.equals(bid)) {
+	      bDao.updateBoardView(board.getB_num());
+	      board = bDao.selectBoard(b_num);
+	    }
+	    
+	    
+	    // 게시글 번호(b_num)로 게시물 보여주기.
+	    model.addAttribute("board", board);
+
+	    // 파일 목록 가져오기
+	    List<BoardFileDto> bfList = bDao.selectFileList(b_num);
+	    model.addAttribute("bfList", bfList);
+	    // 댓글 목록 가져오기
+	    List<ReplyDto> rList = bDao.selectReplyList(b_num);
+	    model.addAttribute("rList", rList);
+
+	    return "boardDetail";
+	  }
 
 	public ReplyDto replyInsert(ReplyDto reply) {
 		log.info("replyInsert()");

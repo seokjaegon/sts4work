@@ -58,9 +58,10 @@ public class BoardController {
 	
 	@GetMapping("boardDetail")
 	public String boardDetail(@RequestParam("b_num") int b_num,
-							  Model model) {
+							  Model model,
+							  HttpSession session) {
 		log.info("boardDetail()");
-		String view = bServ.getBoard(b_num, model);
+		String view = bServ.getBoard(b_num, model, session);
 		return view;
 	}
 	

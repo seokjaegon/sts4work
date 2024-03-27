@@ -1,6 +1,7 @@
 package com.icia.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -41,4 +42,6 @@ public interface BoardDao {
 	void deleteReplys(int b_num);
 	//게시글 삭제 메소드
 	void deleteBoard(int b_num);
+	//게시글 조회수 메소드
+	void updateBoardView(int b_num);
 }
